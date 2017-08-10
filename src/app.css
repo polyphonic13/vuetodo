@@ -47,12 +47,12 @@
 .icon {
   background: #666;
   color: white;
-  width: 48px;
+  width: 64px;
   border: 1px solid #999;
-  font-size: .75em;
+  font-size: .66em;
   font-weight: bold;
-  margin: 3px;
-  padding: 2px;
+  margin: 2px;
+  padding: 5px;
   text-align: center;
   display: inline-block;
   cursor: pointer;
@@ -73,8 +73,25 @@ button {
 
 }
 
+.above_it_all {
+  left: calc(50% - 128px);
+  top: 50px;
+  position: fixed;
+  z-index: 3;
+}
+
+.lightbox {
+  background: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+
+  position: fixed;
+  z-index: 2;
+}
 .completed {
-  opacity: 0.5;
+  opacity: 0.33;
 }
 
 

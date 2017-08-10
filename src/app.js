@@ -30,6 +30,20 @@ export default {
           description: 'the third todo',
           project: 'aaa',
           isCompleted: false
+        },
+        {
+          id: (Date.now() + Math.floor(Math.random() * 999)),
+          title: 'todo d',
+          description: 'the fourth todo',
+          project: 'aaa',
+          isCompleted: false
+        },
+        {
+          id: (Date.now() + Math.floor(Math.random() * 999)),
+          title: 'todo e',
+          description: 'the fifth todo',
+          project: 'aaa',
+          isCompleted: false
         }
       ],
       empty: {

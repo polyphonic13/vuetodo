@@ -1,3 +1,7 @@
 #list_holder {
-  overflow: scroll;
+  width: auto;
+  height: 317px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
