@@ -1,0 +1,37 @@
+.card {
+  background: #eee;
+  border: 1px solid #ddd;
+  text-align: left;
+  margin: 5px;
+  padding: 10px;
+  width: 256px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.content {
+  background: white;
+}
+
+.title, .description, .project, .extra {
+  padding: 5px;
+}
+
+.title {
+  font-size: 1.3em;
+}
+
+.description {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  height: 128px;
+}
+
+.project {
+  border-bottom: 1px solid #eee;
+
+}
+
+.extra {
+  text-align: right;
+}
