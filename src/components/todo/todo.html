@@ -1,37 +1,19 @@
 <div class="ui centered card">
-  <div class='content' v-show='!isEditing'>
-    <div class='title'>
-      <b>{{ record.title }}</b>
+    <todo-form
+      v-bind:record="record"
+      v-bind:isEditing="isEditing"
+      v-bind:isNew="false"
+      v-bind:class="[{ completed: record.isCompleted }]">
+    </todo-form>
+    <div class="extra content" v-bind:class="[{ completed: record.isCompleted }]">
+      <span class="right floated edit icon " v-on:click="showForm" v-show="!isEditing">edit</span>
+      <span class="right floated isCompleted icon " v-on:click="hideForm" v-show="isEditing">done</span>
+      <span class="right floated delete icon " v-on:click="deleteRecord(record)">delete</span>
     </div>
-    <div class='description'>
-      {{ record.description }}
+    <div class="ui bottom attached green basic button" v-show="record.isCompleted" disabled  v-on:click="updateCompleted(record, false)">
+        restart
     </div>
-    <div class='project'>
-      <span>project: </span><b>{{ record.project }}</b>
+    <div class="ui bottom attached blue basic button" v-show="!record.isCompleted" v-on:click="updateCompleted(record, true)">
+        complete
     </div>
-  </div>
-  <div class='content' v-show='isEditing'>
-    <div class='ui form'>
-      <div class='title'>
-        <input type='text' v-model="record.title" >
-      </div>
-      <div class='description'>
-        <textarea rows="8" cols="36" type='textarea' v-model="record.description" ></textarea>
-      </div>
-      <div class='project'>
-        <span>project: </span><b>{{ record.project }}</b>
-      </div>
-    </div>
-  </div>
-  <div class='extra content'>
-    <span class='right floated edit icon ' v-on:click='showForm' v-show='!isEditing'>edit</span>
-    <span class='right floated done icon ' v-on:click='hideForm' v-show='isEditing'>done</span>
-    <span class='right floated delete icon ' v-on:click='deleteRecord(record)'>delete</span>
-  </div>
-  <div class='ui bottom attached green basic button' v-show='record.done' disabled  v-on:click='updateRecord(record, false)'>
-      completed
-  </div>
-  <div class='ui bottom attached red basic button' v-show='!record.done' v-on:click='updateRecord(record, true)'>
-      pending
-  </div>
 </div>

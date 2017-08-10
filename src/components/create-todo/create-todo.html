@@ -1,29 +1,10 @@
 <div class='ui basic content center aligned segment'>
   <span class='right floated edit icon ' v-on:click="showForm" v-show="!isCreating">add</span>
   <div class='ui centered card' v-show="isCreating">
-    <div class='content'>
-      <div class='ui form'>
-        <div class='field'>
-          <label>Title</label>
-          <input v-model="titleText" type='text' ref='title' defaultValue="" autofocus />
-        </div>
-        <div class='field'>
-          <label>Description</label>
-          <input v-model="descriptionText" type='text' ref='description' defaultValue="">
-        </div>
-        <div class='field'>
-          <label>Project</label>
-          <input v-model="projectText" type='text' ref='project' defaultValue="">
-        </div>
-        <div class='ui two button attached buttons'>
-          <button class='ui basic blue button' v-on:click="sendForm">
-            Create
-          </button>
-          <button class='ui basic red button' v-on:click="hideForm">
-            Cancel
-          </button>
-        </div>
-      </div>
+    <todo-form v-bind:record="record" v-bind:isEditing="true" v-bind:isNew="true"></todo-form>
+    <div class="extra content" v-bind:class="[{ completed: record.isCompleted }]">
+      <span class="right floated icon " v-on:click="sendForm">create</span>
+      <span class="right floated icon " v-on:click="hideForm">cancel</span>
     </div>
   </div>
 </div>

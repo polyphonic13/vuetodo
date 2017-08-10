@@ -1,43 +1,43 @@
+import TodoForm from '../todo-form/todo-form.vue';
+
 export default {
   props: ['record'],
   data() {
     return {
-      titleText: '',
-      descriptionText: '',
-      projectText: '',
       isCreating: false
     };
   },
+  components: {
+    TodoForm
+  },
   methods: {
     showForm() {
-      console.log('CreateTodo/showForm, title = ', this.$refs.title);
-      this.$refs.title.focus();
       this.isCreating = true;
     },
     hideForm() {
       this.isCreating = false;
     },
-    clearForm() {
-      this.titleText = '';
-      this.descriptionText = '';
-      this.projectText = '';
+    reset() {
+      this.record.title = '';
+      this.record.description = '';
+      this.record.project = '';
     },
     sendForm() {
-      const title = this.titleText;
-      const description = this.descriptionText;
-      const project = this.projectText;
-
+      const title = this.record.title;
+      const description = this.record.description;
+      const project = this.record.project;
+      console.log('CreateTodo/sendForm\n\ttitle = ' + title + '\n\tdescription = ' + description + '\n\tproject = ' + project);
       if(title.length > 0 && description.length > 0 && project.length > 0) {
         const record = {
-          id: Date.now() + (Math.random() * 999),
-           title: this.titleText,
-           description: this.descriptionText,
-           project: this.projectText,
-           done: false
+          id: Date.now() + Math.floor(Math.random() * 999),
+          title: title,
+          description: description,
+          project: project,
+          isCompleted: false
         };
         this.$emit('add-record', record);
       }
-      this.clearForm();
+      this.reset();
       this.isCreating = false;
     }
   }

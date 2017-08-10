@@ -1,9 +1,9 @@
 <div>
   <p>
-    <span>completed: {{records.filter(record => {return record.done === true}).length}}</span>
-    <span>pending: {{records.filter(record => {return record.done === false}).length}}</span>
+    <span>completed: {{records.filter(record => {return record.isCompleted === true}).length}}</span>
+    <span>open: {{records.filter(record => {return record.isCompleted === false}).length}}</span>
   </p>
   <div id="list_holder">
-    <todo  v-for="record in records" v-bind:record="record" :key="record.id" v-on:update-record="updateRecord" v-on:delete-record="deleteRecord"></todo>
+    <todo v-for="record in records" v-bind:record="record" :key="record.id" v-on:update-record="updateRecord" v-on:delete-record="deleteRecord"></todo>
   </div>
 </div>

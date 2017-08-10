@@ -1,5 +1,10 @@
+import TodoForm from '../todo-form/todo-form.vue';
+
 export default {
   props: ['record'],
+  components: {
+    TodoForm
+  },
   data() {
     return {
       isEditing: false
@@ -12,8 +17,8 @@ export default {
     hideForm() {
       this.isEditing = false;
     },
-    updateRecord(record, isComplete) {
-      record.done = isComplete;
+    updateCompleted(record, isComplete) {
+      record.isCompleted = isComplete;
       this.$emit('update-record', record);
     },
     deleteRecord(record) {

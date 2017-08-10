@@ -1,0 +1,29 @@
+<div>
+  <div class="content" v-show="!isEditing">
+    <div class="title">
+      <b>{{ record.title }}</b>
+    </div>
+    <div class="description">
+      {{ record.description }}
+    </div>
+    <div class="project">
+      <span>project: </span><b>{{ record.project }}</b>
+    </div>
+  </div>
+  <div class="content" v-show="isEditing">
+    <div class="ui form">
+      <div class="title">
+        <input type="text" ref="title" v-model="record.title" placeholder="title">
+      </div>
+      <div class="description">
+        <textarea rows="8" cols="36" type="textarea"  ref="description" v-model="record.description" placeholder="description"></textarea>
+      </div>
+      <div class="project" v-show="!isNew">
+        <span>project: </span><b>{{ record.project }}</b>
+      </div>
+      <div class="project" v-show="isNew">
+        <input type='text' ref='project' v-model="record.project" placeholder="project" />
+      </div>
+    </div>
+  </div>
+</div>
