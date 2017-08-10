@@ -1,5 +1,7 @@
 #list_holder {
   width: auto;
+  min-width: 100%;
+  text-align: left;
   height: 317px;
   overflow-x: scroll;
   overflow-y: hidden;
