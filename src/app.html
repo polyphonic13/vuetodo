@@ -1,4 +1,14 @@
 <div id="app">
-  <todo-list v-bind:records="records"></todo-list>
-  <create-todo v-bind:record="getEmpty()" v-on:add-record="addTodo"></create-todo>
+  <todo-list
+    v-bind:records="filteredRecords"
+    v-bind:totalRecords="records.length"
+    v-bind:recordFilter="recordFilter"
+    v-on:update-record="updateRecord"
+    v-on:delete-record="deleteRecord"
+    v-on:update-record-filter="updateRecordFilter">
+  </todo-list>
+  <create-todo
+    v-bind:record="getEmpty()"
+    v-on:add-record="addRecord">
+  </create-todo>
 </div>

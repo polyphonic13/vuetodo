@@ -4,7 +4,7 @@ export default {
     changeContext(type) {
       switch(type) {
         case 'edit':
-        this.$ref.title.focus();
+        this.$ref.name.focus();
         this.isEditing = true;
         break;
 

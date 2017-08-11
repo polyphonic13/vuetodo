@@ -21,23 +21,36 @@
   background: white;
 }
 
-.title, .description, .project, .extra {
+.name, .description, .labels, .extra {
   padding: 5px;
 }
 
-.title {
+.name {
   font-size: 1.3em;
 }
 
 .description {
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
-  height: 128px;
+  height: 100px;
 }
 
-.project {
+.labels {
   border-bottom: 1px solid #eee;
 
+}
+
+.labels ul {
+  -webkit-padding-start: 0;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+}
+.label {
+  background: #123456;
+  color: white;
+  padding: 3px 5px;
+  margin: 2px;
+  display: inline-block;
 }
 
 .extra {
@@ -45,14 +58,14 @@
 }
 
 .icon {
-  background: #666;
-  color: white;
-  width: 64px;
+  background: #ccc;
+  /*color: white;*/
+  width: 56px;
   border: 1px solid #999;
   font-size: .66em;
   font-weight: bold;
   margin: 2px;
-  padding: 5px;
+  padding: 4px;
   text-align: center;
   display: inline-block;
   cursor: pointer;
@@ -61,6 +74,15 @@
 button {
   background: white;
   border: none;
+}
+
+.control_button01 {
+  background: #eef;
+  border: 1px solid #ccc;
+  width: 128px;
+  padding: 3px 5px;
+  cursor: pointer;
+  display: inline-block;
 }
 
 .button {
@@ -94,9 +116,16 @@ button {
   opacity: 0.33;
 }
 
+.bg_white {
+  background: white;
+}
+
+.bg_light_blue {
+  background: #eef;
+}
 
 .blue {
-  color: blue;
+  color: #234567;
 }
 
 .red {
@@ -119,4 +148,36 @@ button {
 
 .width50per {
   width: 50%;
+}
+
+.width128px {
+    width: 128px;
+}
+.text_center {
+  text-align: center;
+}
+.text_left {
+  text-align: left
+}
+.text_right {
+  text-align: right;
+}
+
+.text_xxl {
+    font-size: 2em;
+}
+.text_xl {
+    font-size: 1.5em;
+}
+.text_lg {
+    font-size: 1.25em;
+}
+.text_md {
+    font-size: 1em;
+}
+.text_sm {
+    font-size: .75em;
+}
+.text_xs {
+    font-size: .5em;
 }

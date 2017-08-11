@@ -1,28 +1,34 @@
 <div>
   <div class="content" v-show="!isEditing">
-    <div class="title">
-      <b>{{ record.title }}</b>
+    <div class="name">
+      <b>{{ record.name }}</b>
     </div>
     <div class="description">
       {{ record.description }}
     </div>
-    <div class="project">
-      <span>project: </span><b>{{ record.project }}</b>
+    <div class="labels">
+      <ul>
+        <li v-for="label of record.labels" class="label text_sm"><b>{{ label }}</b></li>
+      </ul>
     </div>
+    <div class="text_center text_sm">created: {{ record.createdAt | formatDate }}</div>
   </div>
   <div class="content" v-show="isEditing">
     <div class="ui form">
-      <div class="title">
-        <input type="text" ref="title" v-model="record.title" placeholder="title">
+      <div v-if="!isNew">
+        <input type="hidden" ref="_id" v-model="record._id" />
+      </div>
+      <div class="name">
+        <input type="text" ref="name" v-model="record.name" placeholder="name">
       </div>
       <div class="description">
         <textarea rows="8" cols="36" type="textarea"  ref="description" v-model="record.description" placeholder="description"></textarea>
       </div>
-      <div class="project" v-show="!isNew">
-        <span>project: </span><b>{{ record.project }}</b>
+      <div class="labels" v-show="!isNew">
+        <span>labels: </span><b>{{ record.labels }}</b>
       </div>
-      <div class="project" v-show="isNew">
-        <input type='text' ref='project' v-model="record.project" placeholder="project" />
+      <div class="labels" v-show="isNew">
+        <input type='text' ref='labels' v-model="record.labels" placeholder="labels" />
       </div>
     </div>
   </div>

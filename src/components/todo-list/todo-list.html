@@ -1,10 +1,17 @@
 <div>
-  <p>
-    <span>TO-DO </span>
-    <span>completed: {{records.filter(record => {return record.isCompleted === true}).length}}</span>
-    <span>open: {{records.filter(record => {return record.isCompleted === false}).length}}</span>
-  </p>
+  <h3>things to get done</h3>
   <div id="list_holder">
-    <todo v-for="record in records" v-bind:record="record" :key="record.id" v-on:update-record="updateRecord" v-on:delete-record="deleteRecord"></todo>
+    <todo
+      v-for="record in records"
+      v-bind:record="record"
+      :key="record.id"
+      v-on:update-record="updateRecord"
+      v-on:delete-record="deleteRecord">
+    </todo>
   </div>
+  <p>
+    <div v-bind:class="controlAllClass" v-on:click="updateRecordFilter('all')">all</b></div>
+    <div v-bind:class="controlOpenClass" v-on:click="updateRecordFilter('open')">open</b></div>
+    <div v-bind:class="controlCompleteClass" v-on:click="updateRecordFilter('complete')">completed</b></div>
+  </p>
 </div>
