@@ -23,7 +23,6 @@ export default class Requestor {
     };
 
     post = function(params) {
-      // console.log('Requestor/post, params = ', params);
       var url = params.url || this.url;
 
       if(!url || !params.data) {
@@ -31,8 +30,6 @@ export default class Requestor {
       }
 
       var data = params.data;
-
-      // console.log('\turl = ' + url + '\n\tdata = ', data);
 
       $.post(
         url,
