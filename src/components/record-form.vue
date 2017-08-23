@@ -1,0 +1,66 @@
+<template>
+  <div>
+    <div class="content" v-show="!isEditing">
+      <div class="name">
+        <b>{{ record.name }}</b>
+      </div>
+      <div class="description">
+        {{ record.description }}
+      </div>
+      <div class="labels">
+        <ul>
+          <li v-for="label of record.labels" class="label text_sm"><b>{{ label }}</b></li>
+        </ul>
+      </div>
+      <div class="text_center text_sm">created: {{ record.createdAt | formatDate }}</div>
+    </div>
+    <div class="content" v-show="isEditing">
+      <div class="ui form">
+        <div v-if="!isNew">
+          <input type="hidden" ref="_id" v-model="record._id" />
+        </div>
+        <div class="name">
+          <input type="text" ref="name" v-model="record.name" placeholder="name">
+        </div>
+        <div class="description">
+          <textarea rows="8" cols="36" type="textarea"  ref="description" v-model="record.description" placeholder="description"></textarea>
+        </div>
+        <div class="labels" v-show="!isNew">
+          <span>labels: </span><b>{{ record.labels }}</b>
+        </div>
+        <div class="labels" v-show="isNew">
+          <input type='text' ref='labels' v-model="record.labels" placeholder="labels" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script type="text/javascript">
+export default {
+  name: 'record-form',
+  props: ['record', 'isEditing', 'isNew'],
+  methods: {
+    changeContext(type) {
+      switch(type) {
+        case 'edit':
+        this.$ref.name.focus();
+        this.isEditing = true;
+        break;
+
+        case 'view':
+        this.isEditing = false;
+        break;
+
+        default:
+        this.isEditing = false;
+        break;
+      }
+    },
+    updateRecord(record) {
+      this.$emit('update-record', record);
+    }
+  }
+}
+</script>
+<style>
+</style>

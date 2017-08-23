@@ -1,9 +1,29 @@
-import TodoView from '../todo-view/todo-view.vue';
+<template>
+  <div>
+    <div class="view-holder">
+      <record-detail
+        v-for="record in records"
+        v-bind:record="record"
+        :key="record.id"
+        v-on:update-record="updateRecord"
+        v-on:delete-record="deleteRecord">
+      </record-detail>
+    </div>
+    <p>
+      <div v-bind:class="controlAllClass" v-on:click="updateRecordFilter('all')">all</b></div>
+      <div v-bind:class="controlOpenClass" v-on:click="updateRecordFilter('open')">open</b></div>
+      <div v-bind:class="controlCompleteClass" v-on:click="updateRecordFilter('complete')">completed</b></div>
+    </p>
+  </div>
+</template>
+<script type="text/javascript">
+import RecordDetail from './record-detail.vue';
 
 export default {
-  props: ['records', 'recordFilter', 'totalRecords'],
+  name: 'record-list',
+  props: ['records', 'totalRecords', 'recordFilter'],
   components: {
-    TodoView
+    RecordDetail
   },
   methods: {
     updateRecord(record) {
@@ -44,3 +64,5 @@ export default {
     },
   }
 }
+</script>
+<style></style>

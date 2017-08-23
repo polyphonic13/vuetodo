@@ -1,6 +1,25 @@
-import TodoForm from '../todo-form/todo-form.vue';
+<template>
+  <div class="ui basic content center aligned segment">
+    <button class="right floated edit icon " v-on:click="showForm" v-show="!isCreating">ADD</button>
+    <div class="lightbox" v-show="isCreating"></div>
+    <div class="ui centered above_it_all card" v-show="isCreating">
+      <record-form
+        v-bind:record="record"
+        v-bind:isEditing="true"
+        v-bind:isNew="true">
+      </record-form>
+      <div class="extra content" v-bind:class="[{ completed: record.isCompleted }]">
+        <button class="right floated icon " v-on:click="sendForm">CREATE</button>
+        <button class="right floated icon " v-on:click="hideForm">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</template>
+<script type="text/javascript">
+import RecordForm from './record-form.vue';
 
 export default {
+  name: 'record-create',
   props: ['record'],
   data() {
     return {
@@ -8,7 +27,7 @@ export default {
     };
   },
   components: {
-    TodoForm
+    RecordForm
   },
   methods: {
     showForm() {
@@ -26,7 +45,7 @@ export default {
       const name = this.record.name;
       const description = this.record.description;
       const labels = this.record.labels;
-      console.log('CreateTodo/sendForm\n\tname = ' + name + '\n\tdescription = ' + description + '\n\tlabels = ' + labels);
+
       if(name.length > 0 && description.length > 0) {
         const record = {
           id: Date.now() + Math.floor(Math.random() * 999),
@@ -42,3 +61,6 @@ export default {
     }
   }
 }
+</script>
+<style>
+</style>

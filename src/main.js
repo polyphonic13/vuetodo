@@ -3,7 +3,7 @@
 import Vue from 'vue'
 // import Vue from 'vue/dist/vue.js'
 // import App from './App'
-import Temp from './temp'
+import App from './app'
 
 import moment from 'moment';
 
@@ -17,9 +17,6 @@ Vue.filter('formatDate', function(value) {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  // template: '<h1>hello this is a test</h1>',
-  // template: '<App/>',
-  // components: { App }
-  template: '<Temp/>',
-  components: { Temp }
+  template: '<app/>',
+  components: { App }
 })
