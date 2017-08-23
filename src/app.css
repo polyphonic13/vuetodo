@@ -26,39 +26,9 @@ body {
 
 .content {
   background: white;
+  height: 100%;
 }
 
-.name, .description, .labels, .extra {
-  padding: 5px;
-}
-
-.name {
-  font-size: 1.3em;
-}
-
-.description {
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  height: 100px;
-}
-
-.labels {
-  border-bottom: 1px solid #eee;
-
-}
-
-.labels ul {
-  -webkit-padding-start: 0;
-  -webkit-margin-before: 0;
-  -webkit-margin-after: 0;
-}
-.label {
-  background: #123456;
-  color: white;
-  padding: 3px 5px;
-  margin: 2px;
-  display: inline-block;
-}
 
 .extra {
   text-align: right;
@@ -86,8 +56,8 @@ button {
 .control_button01 {
   background: #eef;
   border: 1px solid #ccc;
-  width: 128px;
-  padding: 3px 5px;
+  width: 96px;
+  padding: 4px;
   cursor: pointer;
   display: inline-block;
 }

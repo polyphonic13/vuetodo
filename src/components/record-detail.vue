@@ -46,6 +46,7 @@ export default {
     },
     saveRecord(record, isCompleted) {
       console.log('RecordDetail/saveRecord, is new = ' + record.isNew + ', record = ', record);
+      record.labels = record.labelsString.split(', ');
       if(record.isNew) {
         this.$emit('create-record', record);
       } else {

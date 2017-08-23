@@ -59,6 +59,7 @@ export default {
       apiUrl: 'http://localhost:8997/api/',
       apis: {
         todo: 'todos/',
+        todoList: 'todos/?sort_by=ordinal:1',
         todoDelete: 'todos/delete/'
       },
       requestor: new Requestor(),
@@ -74,6 +75,7 @@ export default {
       editable: [
         'name',
         'description',
+        'ordinal',
         'labels',
         'isCompleted'
       ],
@@ -81,24 +83,27 @@ export default {
     }
   },
   mounted: function() {
-    let done = function(context) {
-      return function(response) {
-        context.records = response.data.map(record => {
-          record.isNew = false;
-          record.isEditing = false;
-          return record;
-        });
-        context.records = response.data;
-        console.log('app js mounted, records = ', context.records);
-      };
-    }(this);
-
-    this.requestor.get({
-      url: this.apiUrl + this.apis.todo,
-      done: done
-    });
+    this.getRecordList();
   },
   methods: {
+    getRecordList() {
+      let done = function(context) {
+        return function(response) {
+          context.records = response.data.map(record => {
+            record.isNew = false;
+            record.isEditing = false;
+            return record;
+          });
+          context.records = response.data;
+          console.log('app js mounted, records = ', context.records);
+        };
+      }(this);
+
+      this.requestor.get({
+        url: this.apiUrl + this.apis.todoList,
+        done: done
+      });
+    },
     addRecord() {
       console.log('App/addRecord');
       var record = this.getEmpty();
