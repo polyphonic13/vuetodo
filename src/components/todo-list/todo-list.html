@@ -1,13 +1,13 @@
 <div>
   <h3>things to get done</h3>
   <div id="list_holder">
-    <todo
+    <todo-view
       v-for="record in records"
       v-bind:record="record"
       :key="record.id"
       v-on:update-record="updateRecord"
       v-on:delete-record="deleteRecord">
-    </todo>
+    </todo-view>
   </div>
   <p>
     <div v-bind:class="controlAllClass" v-on:click="updateRecordFilter('all')">all</b></div>

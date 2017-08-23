@@ -1,6 +1,7 @@
 import Requestor from './services/requestor';
-import TodoList from './components/todo-list/todo-list.vue';
-import CreateTodo from './components/create-todo/create-todo.vue';
+
+// import TodoList from './components/todo-list/todo-list.vue';
+// import TodoCreate from './components/todo-create/todo-create.vue';
 
 var apiUrl = 'http://localhost:8997/api/';
 var apis = {
@@ -29,7 +30,7 @@ export default {
   name: 'app',
   components: {
     TodoList,
-    CreateTodo
+    TodoCreate
   },
   data() {
     return {
@@ -46,6 +47,7 @@ export default {
     var done = function(context) {
       return function(response) {
         context.records = response.data;
+        console.log('app js mounted, records = ', context.records);
       };
     }(this);
 

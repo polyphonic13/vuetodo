@@ -1,7 +1,9 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
+// import Vue from 'vue/dist/vue.js'
+// import App from './App'
+import Temp from './temp'
 
 import moment from 'moment';
 
@@ -12,10 +14,12 @@ Vue.filter('formatDate', function(value) {
     return moment(String(value)).format('YYYY.MM.DD - hh:mm');
   }
 });
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  template: '<App/>',
-  components: { App }
+  // template: '<h1>hello this is a test</h1>',
+  // template: '<App/>',
+  // components: { App }
+  template: '<Temp/>',
+  components: { Temp }
 })

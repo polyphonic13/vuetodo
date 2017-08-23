@@ -1,9 +1,9 @@
-import Todo from '../todo/todo.vue';
+import TodoView from '../todo-view/todo-view.vue';
 
 export default {
   props: ['records', 'recordFilter', 'totalRecords'],
   components: {
-    Todo
+    TodoView
   },
   methods: {
     updateRecord(record) {
