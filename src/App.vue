@@ -66,11 +66,17 @@ export default {
       empty: {
         name: '',
         description: '',
-        labels: '',
+        labels: [],
         isCompleted: false,
         isNew: true,
         isEditing: true
       },
+      editable: [
+        'name',
+        'description',
+        'labels',
+        'isCompleted'
+      ],
       recordFilter: 'open'
     }
   },
@@ -128,24 +134,29 @@ export default {
       if(!data._id) {
         return;
       }
-      var index = this.getTodoIndex(data);
+
+      let update = {};
+      for(var key in data) {
+        if(this.editable.indexOf(key) > -1) {
+          update[key] = data[key];
+        }
+      }
+      console.log('update = ', update);
+      let id = data._id;
 
       let done = function(context) {
         return function(response) {
-          if(response.success) {
-              this.records.splice('index', 1, response.data);
-          } else {
-            console.log(response.message);
-          }
+          console.log('\tupdate callback, response = ', response);
         }
       }(this);
 
       this.requestor.post({
-        url: this.apiUrl + this.apis.todo + data._id,
-        data: data,
+        url: this.apiUrl + this.apis.todo + id,
+        data: update,
         done: done
       });
     },
+
     deleteRecord(data) {
       console.log('App/deleteRecord, id = ' + data._id + ', data = ', data);
       if(!data._id) {

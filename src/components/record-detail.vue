@@ -10,7 +10,7 @@
         <button class="right floated delete icon " v-on:click="deleteRecord(record)" v-show="!record.isNew">DELETE</button>
         <button class="right floated delete icon " v-on:click="cancelCreate()" v-show="record.isNew">CANCEL</button>
       </div>
-      <div class="ui bottom attached green basic button" v-show="record.isCompleted" disabled  v-on:click="updateRecord(record, false)">
+      <div class="ui bottom attached green basic button" v-show="record.isCompleted" disabled  v-on:click="saveRecord(record, false)">
           restart
       </div>
       <div class="ui bottom attached blue basic button" v-show="!record.isCompleted" v-on:click="saveRecord(record, true)">
@@ -44,11 +44,12 @@ export default {
     hideForm(record) {
       record.isEditing = false;
     },
-    saveRecord(record, isComplete) {
+    saveRecord(record, isCompleted) {
       console.log('RecordDetail/saveRecord, is new = ' + record.isNew + ', record = ', record);
       if(record.isNew) {
         this.$emit('create-record', record);
       } else {
+        record.isCompleted = isCompleted;
         this.$emit('update-record', record);
       }
       this.hideForm(record);

@@ -8,7 +8,7 @@
         {{ record.description }}
       </div>
       <div class="labels">
-        <ul>
+        <ul v-show="record.labels.length > 0">
           <li v-for="label of record.labels" class="label text_sm"><b>{{ label }}</b></li>
         </ul>
       </div>
