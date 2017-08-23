@@ -116,11 +116,12 @@ export default {
 
       let done = function(context) {
         return function(response) {
-          if(response.success) {
-            context.records.unshift(response.data);
-          } else {
-            console.log(response.message);
-          }
+          context.getRecordList();
+          // if(response.success) {
+          //   context.records.unshift(response.data);
+          // } else {
+          //   console.log(response.message);
+          // }
         };
       }(this);
 
@@ -152,6 +153,7 @@ export default {
       let done = function(context) {
         return function(response) {
           console.log('\tupdate callback, response = ', response);
+          context.getRecordList();
         }
       }(this);
 
@@ -172,11 +174,12 @@ export default {
       let done = function(context) {
         return function(response) {
           console.log('\tdelete callback, response = ', response, '\nindex = ' + index);
-          if(response.success) {
-            context.records.splice(index, 1);
-          } else {
-            console.log(response.message);
-          }
+          context.getRecordList();
+          // if(response.success) {
+          //   context.records.splice(index, 1);
+          // } else {
+          //   console.log(response.message);
+          // }
         }
       }(this);
 

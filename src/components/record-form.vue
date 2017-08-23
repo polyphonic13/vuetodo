@@ -28,7 +28,7 @@
           <textarea rows="7" cols="37" type="textarea" ref="description" v-model="record.description" placeholder="description"></textarea>
         </div>
         <div class="labels">
-          <input type='text' ref='labels' v-model="record.labelsString" placeholder="labels" />
+          <input type='text' ref='labels' v-model="record.labels" placeholder="labels" />
         </div>
         <div class="created text_center text_sm"></div>
       </div>
@@ -39,9 +39,6 @@
 export default {
   name: 'record-form',
   props: ['record', 'record.isEditing', 'record.isNew'],
-  mounted: function() {
-    this.formatLabelsForEdit();
-  },
   methods: {
     changeContext(type) {
       switch(type) {
@@ -58,17 +55,6 @@ export default {
         this.record.isEditing = false;
         break;
       }
-    },
-    formatLabelsForEdit() {
-      this.record.labelsString = this.record.labels.join(', ');
-    },
-    formatLabelsForSave() {
-      this.record.labels = this.record.labelsString.split(', ');
-    },
-    updateRecord(record) {
-      this.formatLabelsForSave();
-      console.log('RecordForm/updateRecord, labels now = ', this.record.labels);
-      this.$emit('update-record', record);
     }
   }
 }
