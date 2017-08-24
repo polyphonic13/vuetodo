@@ -46,13 +46,14 @@ export default {
       record.isEditing = false;
     },
     saveRecord(record, isCompleted) {
-      let labels = record.labels.replace(' ', '').split(',');
-      record.labels = new Array();
-
-      labels.forEach(function(l) {
-        console.log('\tpushing: ' + l);
-        record.labels.push(l);
-      })
+      // var label = record.labels || [];
+      //
+      // record.labels = new Array();
+      //
+      // labels.forEach(function(l) {
+      //   console.log('\tpushing: ' + l);
+      //   record.labels.push(l);
+      // })
 
       console.log('RecordDetail/saveRecord, is new = ' + record.isNew + '\nlabels = ', record.labels.length, '\nrecord = ', record);
       if(record.isNew) {
