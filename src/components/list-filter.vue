@@ -1,8 +1,8 @@
 <template>
   <div class="list-filter">
-    <div v-bind:class="getControlClass('all')" v-on:click="updateRecordFilter('all')">all</b></div>
     <div v-bind:class="getControlClass('open')" v-on:click="updateRecordFilter('open')">open</b></div>
     <div v-bind:class="getControlClass('completed')" v-on:click="updateRecordFilter('completed')">completed</b></div>
+    <div v-bind:class="getControlClass('all')" v-on:click="updateRecordFilter('all')">all</b></div>
   </div>
 </template>
 <script type="text/javascript">

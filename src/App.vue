@@ -117,11 +117,6 @@ export default {
       let done = function(context) {
         return function(response) {
           context.getRecordList();
-          // if(response.success) {
-          //   context.records.unshift(response.data);
-          // } else {
-          //   console.log(response.message);
-          // }
         };
       }(this);
 
@@ -175,11 +170,6 @@ export default {
         return function(response) {
           console.log('\tdelete callback, response = ', response, '\nindex = ' + index);
           context.getRecordList();
-          // if(response.success) {
-          //   context.records.splice(index, 1);
-          // } else {
-          //   console.log(response.message);
-          // }
         }
       }(this);
 

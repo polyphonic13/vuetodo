@@ -10,7 +10,13 @@
       </div>
       <div class="labels">
         <ul v-show="record.labels.length > 0">
-          <li v-for="label of record.labels" class="label text_sm"><b>{{ label }}</b></li>
+          <li v-for="label of record.labels" class="label text_sm">
+            <todo-label-detail
+              v-bind:record="label"
+              v-bind:isEditing="false"
+              v-on:clicked="labelClicked">
+            </todo-label-detail>
+          </li>
         </ul>
       </div>
       <div class="created text_center text_sm">created: {{ record.createdAt | formatDate }}</div>
@@ -25,10 +31,19 @@
           <input type="text" ref="name" v-model="record.name" placeholder="name">
         </div>
         <div class="description">
-          <textarea rows="7" cols="37" type="textarea" ref="description" v-model="record.description" placeholder="description"></textarea>
+          <textarea rows="5" cols="32" type="textarea" ref="description" v-model="record.description" placeholder="description" class="description-edit"></textarea>
         </div>
         <div class="labels">
-          <input type='text' ref='labels' v-model="record.labels" placeholder="labels" />
+          <ul v-show="record.labels.length > 0">
+            <li v-for="label of record.labels" class="label text_sm">
+              <todo-label-detail
+                v-bind:record="label"
+                v-bind:isEditing="true"
+                v-on:clicked="labelClicked"
+                v-on:delete-clicked="labelDeleteClicked">
+              </todo-label-detail>
+            </li>
+          </ul>
         </div>
         <div class="created text_center text_sm"></div>
       </div>
@@ -36,9 +51,14 @@
   </div>
 </template>
 <script type="text/javascript">
+import TodoLabelDetail from './todo-label-detail.vue';
+
 export default {
   name: 'record-form',
   props: ['record', 'record.isEditing', 'record.isNew'],
+  components: {
+    TodoLabelDetail
+  },
   methods: {
     changeContext(type) {
       switch(type) {
@@ -55,6 +75,12 @@ export default {
         this.record.isEditing = false;
         break;
       }
+    },
+    labelClicked(label) {
+      console.log('RecordForm/labelClicked, label = ', label);
+    },
+    labelDeleteClicked(label) {
+      console.log('RecordForm/labelDeleteClicked, _id = ', label.record._id);
     }
   }
 }
@@ -66,19 +92,25 @@ export default {
 .name, .description, .ordinal, .labels, .extra {
   padding: 5px;
 }
-
-
+.name, .ordinal {
+  font-size: 1em;
+}
+.name input, .ordinal input, .labels input {
+  width: 97%;
+  font-size: 0.9em;
+}
 .description {
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   height: 96px;
 }
-
+.description-edit {
+  font-size: 0.85em;
+}
 .labels {
   border-bottom: 1px solid #eee;
-
+  height: 27px;
 }
-
 .labels ul {
   -webkit-padding-start: 0;
   -webkit-margin-before: 0;
@@ -90,21 +122,8 @@ export default {
   padding: 3px 5px;
   margin: 2px;
   display: inline-block;
+  cursor: pointer;
 }
-
-.name, .ordinal {
-  font-size: 1em;
-}
-
-.name input, .ordinal input, .labels input {
-  width: 97%;
-  font-size: 0.9em;
-}
-
-.labels {
-  height: 27px;
-}
-
 .created {
   padding: 5px;
   height: 22px;
