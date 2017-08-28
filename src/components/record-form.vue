@@ -77,10 +77,22 @@ export default {
       }
     },
     labelClicked(label) {
-      console.log('RecordForm/labelClicked, label = ', label);
+      console.log('RecordForm/labelClicked, label = ', label.record);
     },
     labelDeleteClicked(label) {
       console.log('RecordForm/labelDeleteClicked, _id = ', label.record._id);
+      let id = label.record._id;
+      let index = -1;
+      this.record.labels.forEach(function(l, idx) {
+        if(l._id === id) {
+          index = idx;
+        }
+      });
+      if(index !== -1) {
+        console.log('\tsplicing from index: ' + index);
+        this.record.labels.splice(index, 1);
+        console.log('\tlabels now = ', this.record.labels);
+      }
     }
   }
 }

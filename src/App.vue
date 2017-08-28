@@ -59,7 +59,7 @@ export default {
       apiUrl: 'http://localhost:8997/api/',
       apis: {
         todo: 'todos/',
-        todoList: 'todos/?sort_by=ordinal:1',
+        todoList: 'todos/?sort_by=createdAt:-1',
         todoDelete: 'todos/delete/'
       },
       requestor: new Requestor(),

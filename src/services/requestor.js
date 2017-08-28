@@ -10,7 +10,7 @@ export default class Requestor {
     };
 
     get = function(params) {
-      var url = params.url || this.url;
+      let url = params.url || this.url;
       if(!url) {
         return;
       }
@@ -23,14 +23,14 @@ export default class Requestor {
     };
 
     post = function(params) {
-      var url = params.url || this.url;
+      let url = params.url || this.url;
 
       if(!url || !params.data) {
         return;
       }
 
-      var data = params.data;
-
+      let data = params.data;
+      console.log('data = ', data, '\nstringified: ' + JSON.stringify(data));
       $.post(
         url,
         data
@@ -38,4 +38,22 @@ export default class Requestor {
           params.done(response);
       });
     };
+
+    createData = function(source) {
+      let data = {};
+      for(let key in source) {
+        if(Array.isArray(source[key])) {
+          data[key] = [];
+          source[key].forEach(function(el) {
+              data[key].push(source[key]);
+          });
+        } else if(typeof(source[key]) === '') {
+          data[key] = this.createData(source[key]);
+        } else {
+          data[key] = source[key];
+        }
+      }
+      return data;
+    };
+
 }

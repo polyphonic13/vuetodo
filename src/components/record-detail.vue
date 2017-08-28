@@ -55,11 +55,12 @@ export default {
       //   record.labels.push(l);
       // })
 
-      console.log('RecordDetail/saveRecord, is new = ' + record.isNew + '\nlabels = ', record.labels.length, '\nrecord = ', record);
+      console.log('RecordDetail/saveRecord, is new = ' + record.isNew + '\nlabels length = ', record.labels.length, '\nrecord = ', record);
       if(record.isNew) {
         this.$emit('create-record', record);
       } else {
         record.isCompleted = isCompleted;
+
         this.$emit('update-record', record);
       }
       this.hideForm(record);
