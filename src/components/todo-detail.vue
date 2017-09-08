@@ -1,34 +1,34 @@
 <template>
   <div class="ui centered card">
-      <record-form
+      <todo-form
         v-bind:record="record"
         v-bind:class="[{ completed: record.isCompleted }]">
-      </record-form>
+      </todo-form>
       <div class="extra content" v-bind:class="[{ completed: record.isCompleted }]">
         <button class="right floated edit icon " v-on:click="showForm(record)" v-show="!record.isEditing">EDIT</button>
-        <button class="right floated isCompleted icon " v-on:click="saveRecord(record)" v-show="record.isEditing">SAVE</button>
-        <button class="right floated delete icon " v-on:click="deleteRecord(record)" v-show="!record.isEditing">DELETE</button>
+        <button class="right floated isCompleted icon " v-on:click="saveTodo(record)" v-show="record.isEditing">SAVE</button>
+        <button class="right floated delete icon " v-on:click="deleteTodo(record)" v-show="!record.isEditing">DELETE</button>
         <button class="right floated cancel icon " v-on:click="cancelCreate()" v-show="record.isNew">CANCEL</button>
         <button class="right floated cancel icon " v-on:click="cancelEdit(record)" v-show="record.isEditing&&!record.isNew">CANCEL</button>
       </div>
-      <div class="ui bottom attached green basic button" v-show="record.isCompleted" disabled  v-on:click="saveRecord(record, false)">
+      <div class="ui bottom attached green basic button" v-show="record.isCompleted" disabled  v-on:click="saveTodo(record, false)">
           restart
       </div>
-      <div class="ui bottom attached blue basic button" v-show="!record.isCompleted" v-on:click="saveRecord(record, true)">
+      <div class="ui bottom attached blue basic button" v-show="!record.isCompleted" v-on:click="saveTodo(record, true)">
           complete
       </div>
   </div>
 </template>
 <script type="text/javascript">
 // import TodoForm from '../todo-form/todo-form.vue';
-import RecordForm from './record-form.vue';
+import TodoForm from './todo-form.vue';
 
 export default {
-  name: 'record-detail',
+  name: 'todo-detail',
   props: ['record'],
   components: {
     // TodoForm
-    RecordForm
+    TodoForm
   },
   data() {
     return {
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     mounted: function() {
-      console.log('RecordDetail/mounted, record = ', this.record);
+      console.log('TodoDetail/mounted, record = ', this.record);
     },
     showForm(record) {
       record.isEditing = true;
@@ -45,7 +45,7 @@ export default {
     hideForm(record) {
       record.isEditing = false;
     },
-    saveRecord(record, isCompleted) {
+    saveTodo(record, isCompleted) {
       // var label = record.labels || [];
       //
       // record.labels = new Array();
@@ -55,7 +55,7 @@ export default {
       //   record.labels.push(l);
       // })
 
-      console.log('RecordDetail/saveRecord, is new = ' + record.isNew + '\nlabels length = ', record.labels.length, '\nrecord = ', record);
+      console.log('TodoDetail/saveTodo, is new = ' + record.isNew + '\nlabels length = ', record.labels.length, '\nrecord = ', record);
       if(record.isNew) {
         this.$emit('create-record', record);
       } else {
@@ -65,12 +65,12 @@ export default {
       }
       this.hideForm(record);
     },
-    deleteRecord(record) {
-      console.log('RecordDetail/deleteRecord, record = ', record);
+    deleteTodo(record) {
+      console.log('TodoDetail/deleteTodo, record = ', record);
       this.$emit('delete-record', record);
     },
     cancelCreate() {
-      console.log('RecordDetail/cancelCreate');
+      console.log('TodoDetail/cancelCreate');
       this.$emit('cancel-create');
     },
     cancelEdit(record) {

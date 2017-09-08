@@ -1,5 +1,5 @@
 <template>
-  <div class="record-form">
+  <div class="todo-form">
     <!-- VIEW -->
     <div class="content" v-show="!record.isEditing">
       <div class="name">
@@ -54,7 +54,7 @@
 import TodoLabelDetail from './todo-label-detail.vue';
 
 export default {
-  name: 'record-form',
+  name: 'todo-form',
   props: ['record', 'record.isEditing', 'record.isNew'],
   components: {
     TodoLabelDetail
@@ -77,10 +77,10 @@ export default {
       }
     },
     labelClicked(label) {
-      console.log('RecordForm/labelClicked, label = ', label.record);
+      console.log('TodoForm/labelClicked, label = ', label.record);
     },
     labelDeleteClicked(label) {
-      console.log('RecordForm/labelDeleteClicked, _id = ', label.record._id);
+      console.log('TodoForm/labelDeleteClicked, _id = ', label.record._id);
       let id = label.record._id;
       let index = -1;
       this.record.labels.forEach(function(l, idx) {
@@ -98,7 +98,7 @@ export default {
 }
 </script>
 <style>
-.record-form {
+.todo-form {
   height: 205px;
 }
 .name, .description, .ordinal, .labels, .extra {

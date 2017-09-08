@@ -3,32 +3,32 @@
     <div class="top-row">
       <list-filter
         v-bind:recordFilter="recordFilter"
-        v-on:update-record-filter="updateRecordFilter">
+        v-on:update-todo-filter="updateTodoFilter">
       </list-filter>
       <div class="create-record">
-        <record-create
+        <todo-create
           v-bind:record="getEmpty()"
-          v-on:add-record="addRecord"
-          v-on:create-record="createRecord"
+          v-on:add-record="addTodo"
+          v-on:create-record="createTodo"
           v-on:cancel-create="cancelCreate">
-        </record-create>
+        </todo-create>
       </div>
     </div>
-    <record-list
-      v-bind:records="filteredRecords"
-      v-bind:totalRecords="records.length"
-      v-on:create-record="createRecord"
+    <todo-list
+      v-bind:records="filteredTodos"
+      v-bind:totalTodos="records.length"
+      v-on:create-record="createTodo"
       v-on:cancel-create="cancelCreate"
-      v-on:update-record="updateRecord"
-      v-on:delete-record="deleteRecord">
-    </record-list>
+      v-on:update-record="updateTodo"
+      v-on:delete-record="deleteTodo">
+    </todo-list>
   </div>
 </template>
 
 <script type="text/javascript">
 import Requestor from './services/requestor';
-import RecordList from './components/record-list.vue';
-import RecordCreate from './components/record-create.vue';
+import TodoList from './components/todo-list.vue';
+import TodoCreate from './components/todo-create.vue';
 import ListFilter from './components/list-filter.vue';
 
 let filters = {
@@ -50,8 +50,8 @@ let filters = {
 export default {
   name: 'app',
   components: {
-    RecordList,
-    RecordCreate,
+    TodoList,
+    TodoCreate,
     ListFilter
   },
   data() {
@@ -83,10 +83,10 @@ export default {
     }
   },
   mounted: function() {
-    this.getRecordList();
+    this.getTodoList();
   },
   methods: {
-    getRecordList() {
+    getTodoList() {
       let done = function(context) {
         return function(response) {
           context.records = response.data.map(record => {
@@ -104,19 +104,19 @@ export default {
         done: done
       });
     },
-    addRecord() {
-      console.log('App/addRecord');
+    addTodo() {
+      console.log('App/addTodo');
       var record = this.getEmpty();
       console.log('\tnew record = ', record);
       this.records.unshift(record);
     },
-    createRecord(data) {
-      console.log('App/createRecord, data = ', data);
+    createTodo(data) {
+      console.log('App/createTodo, data = ', data);
       this.records.shift();
 
       let done = function(context) {
         return function(response) {
-          context.getRecordList();
+          context.getTodoList();
         };
       }(this);
 
@@ -130,8 +130,8 @@ export default {
       console.log('App/cancelCreate');
       this.records.shift();
     },
-    updateRecord(data) {
-      console.log('App/updateRecord, data = ', data);
+    updateTodo(data) {
+      console.log('App/updateTodo, data = ', data);
       if(!data._id) {
         return;
       }
@@ -148,7 +148,7 @@ export default {
       let done = function(context) {
         return function(response) {
           console.log('\tupdate callback, response = ', response);
-          context.getRecordList();
+          context.getTodoList();
         }
       }(this);
 
@@ -159,8 +159,8 @@ export default {
       });
     },
 
-    deleteRecord(data) {
-      console.log('App/deleteRecord, id = ' + data._id + ', data = ', data);
+    deleteTodo(data) {
+      console.log('App/deleteTodo, id = ' + data._id + ', data = ', data);
       if(!data._id) {
         return;
       }
@@ -169,7 +169,7 @@ export default {
       let done = function(context) {
         return function(response) {
           console.log('\tdelete callback, response = ', response, '\nindex = ' + index);
-          context.getRecordList();
+          context.getTodoList();
         }
       }(this);
 
@@ -189,7 +189,7 @@ export default {
       }
       return obj;
     },
-    updateRecordFilter(data) {
+    updateTodoFilter(data) {
       if(data === this.recordFilter) {
         return;
       }
@@ -197,7 +197,7 @@ export default {
     }
   },
   computed: {
-    filteredRecords: function() {
+    filteredTodos: function() {
       return filters[this.recordFilter](this.records);
     }
   }
