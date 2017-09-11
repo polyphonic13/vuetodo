@@ -20,14 +20,13 @@
   </div>
 </template>
 <script type="text/javascript">
-// import TodoForm from '../todo-form/todo-form.vue';
+
 import TodoForm from './todo-form.vue';
 
 export default {
   name: 'todo-detail',
   props: ['record'],
   components: {
-    // TodoForm
     TodoForm
   },
   data() {

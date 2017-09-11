@@ -1,27 +1,45 @@
 <template>
   <div class="todo-form">
     <!-- VIEW -->
-    <div class="content" v-show="!record.isEditing">
-      <div class="name">
+    <!-- <div class="content" v-show="!record.isEditing"> -->
+      <div class="content">
+      <!-- <div class="name">
         <b>{{ record.name }}</b>
-      </div>
-      <div class="description">
+      </div> -->
+      <text-field 
+        v-bind:fieldName="fieldNames.name"
+        v-bind:value="record.name"
+        v-bind:isEditing="record.isEditing"
+        v-bind:className="fieldNames.name"
+        v-on:change="onFieldChange('name', $event)">
+      </text-field>
+      <!-- <div class="description">
         {{ record.description }}
-      </div>
+      </div> -->
+      <text-area-field
+        v-bind:fieldName="fieldNames.description"
+        v-bind:value="record.description"
+        v-bind:isEditing="record.isEditing"
+        v-bind:className="fieldNames.description"
+        v-bind:rows="descriptionRows"
+        v-bind:cols="descriptionCols"
+        v-on:change="onFieldChange('description', $event)">
+      </text-area-field>
       <div class="labels">
         <ul v-show="record.labels.length > 0">
-          <li v-for="label of record.labels" class="label text_sm">
+          <li v-for="label of record.labels" :key="label.id" class="label text_sm">
             <todo-label-detail
               v-bind:record="label"
-              v-bind:isEditing="false"
-              v-on:clicked="labelClicked">
+              v-bind:isEditing="record.isEditing"
+              v-on:clicked="labelClicked"
+              v-on:delete-clicked="labelDeleteClicked">
             </todo-label-detail>
           </li>
         </ul>
       </div>
       <div class="created text_center text_sm">created: {{ record.createdAt | formatDate }}</div>
     </div>
-    <!-- EDIT -->
+    <!-- EDIT
     <div class="content" v-show="record.isEditing">
       <div class="ui form">
         <div v-if="!record.isNew">
@@ -35,7 +53,7 @@
         </div>
         <div class="labels">
           <ul v-show="record.labels.length > 0">
-            <li v-for="label of record.labels" class="label text_sm">
+            <li v-for="label of record.labels" :key="label.id" class="label text_sm">
               <todo-label-detail
                 v-bind:record="label"
                 v-bind:isEditing="true"
@@ -48,16 +66,36 @@
         <div class="created text_center text_sm"></div>
       </div>
     </div>
+     -->
   </div>
 </template>
 <script type="text/javascript">
+import TextField from './core/text-field.vue';
+import TextAreaField from './core/text-area-field.vue';
+
 import TodoLabelDetail from './todo-label-detail.vue';
 
 export default {
   name: 'todo-form',
   props: ['record', 'record.isEditing', 'record.isNew'],
   components: {
-    TodoLabelDetail
+    TodoLabelDetail,
+    TextField,
+    TextAreaField
+  },
+  computed:  {
+    fieldNames: function() {
+      return {
+        name: 'name',
+        description: 'description'
+      }
+    },
+    descriptionRows: function() {
+      return 6;
+    },
+    descriptionCols: function() {
+      return 37;
+    }
   },
   methods: {
     changeContext(type) {
@@ -75,6 +113,10 @@ export default {
         this.record.isEditing = false;
         break;
       }
+    },
+    onFieldChange(field, data) {
+      console.log('TodoForm/onFieldChange, field = ' + field + ', data = ', data);
+      this.record[field] = data;
     },
     labelClicked(label) {
       console.log('TodoForm/labelClicked, label = ', label.record);
@@ -105,6 +147,7 @@ export default {
   padding: 5px;
 }
 .name, .ordinal {
+  font-weight: bold;
   font-size: 1em;
 }
 .name input, .ordinal input, .labels input {

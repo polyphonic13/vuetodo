@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li v-for="label in labels">
+    <li v-for="label in labels" :key="label.id">
       <div>{{ label.name }}</div>
     <li>
   </ul>
