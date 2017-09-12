@@ -25,7 +25,7 @@
   </div>
 </template>
 
-<script type="text/javascript">
+<script lang="ts">
 import Requestor from './services/requestor';
 import TodoList from './components/todo-list.vue';
 import TodoCreate from './components/todo-create.vue';

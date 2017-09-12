@@ -1,7 +1,7 @@
 <template>
   
 </template>
-<script>
+<script lang="ts">
 export default {
     props: ['fieldName', 'value', 'isEditing', 'default', 'className'],
     data: function() {

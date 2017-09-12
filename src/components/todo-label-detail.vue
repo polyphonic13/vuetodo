@@ -8,9 +8,9 @@
 
   </div>
 </template>
-<script type="text/javascript">
-import Crud from '../mixins/crud.js';
-import ClickEmitter from '../mixins/click-emitter.js';
+<script lang="ts">
+import Crud from '../mixins/crud';
+import ClickEmitter from '../mixins/click-emitter';
 
 export default {
   name: 'todo-label-detail',
@@ -24,9 +24,5 @@ export default {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   padding: 1px 4px;
-}
-
-.delete-box {
-  /*border-left: 1px solid #456789;*/
 }
 </style>

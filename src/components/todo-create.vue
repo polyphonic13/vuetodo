@@ -3,7 +3,7 @@
     <button class="right floated edit icon " v-on:click="addTodo" v-show="!isCreating">ADD</button>
   </div>
 </template>
-<script type="text/javascript">
+<script lang="ts">
 export default {
   name: 'todo-create',
   data() {

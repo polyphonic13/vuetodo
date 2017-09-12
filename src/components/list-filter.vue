@@ -5,7 +5,7 @@
     <div v-bind:class="getControlClass('all')" v-on:click="updateTodoFilter('all')">all</b></div>
   </div>
 </template>
-<script type="text/javascript">
+<script lang="ts">
 export default {
   name: 'list-filter',
   props: ['recordFilter'],

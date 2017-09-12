@@ -5,7 +5,7 @@
     <li>
   </ul>
 </template>
-<script type="text/javascript">
+<script lang="ts">
 export default {
   name: 'todo-label-list'
 }

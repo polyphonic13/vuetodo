@@ -13,7 +13,7 @@
     </div>
   </div>
 </template>
-<script type="text/javascript">
+<script lang="ts">
 import TodoDetail from './todo-detail.vue';
 
 export default {

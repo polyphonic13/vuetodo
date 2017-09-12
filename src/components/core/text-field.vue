@@ -6,7 +6,7 @@
     </div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import Field from './field';
 
 export default {

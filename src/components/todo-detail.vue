@@ -19,7 +19,7 @@
       </div>
   </div>
 </template>
-<script type="text/javascript">
+<script lang="ts">
 
 import TodoForm from './todo-form.vue';
 

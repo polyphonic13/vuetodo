@@ -1,7 +1,9 @@
+import $ from "jquery"; 
+
 export default class Requestor {
     init = function(params) {
       if(params.url) {
-        setUrl(url);
+        this.setUrl(params.url);
       }
     };
 
@@ -37,23 +39,6 @@ export default class Requestor {
       ).done(function(response) {
           params.done(response);
       });
-    };
-
-    createData = function(source) {
-      let data = {};
-      for(let key in source) {
-        if(Array.isArray(source[key])) {
-          data[key] = [];
-          source[key].forEach(function(el) {
-              data[key].push(source[key]);
-          });
-        } else if(typeof(source[key]) === '') {
-          data[key] = this.createData(source[key]);
-        } else {
-          data[key] = source[key];
-        }
-      }
-      return data;
     };
 
 }
