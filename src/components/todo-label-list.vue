@@ -8,7 +8,9 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-export default {
+@Component({
   name: 'todo-label-list'
+})
+export default class TodoLabelList extends Vue {
 }
 </script>

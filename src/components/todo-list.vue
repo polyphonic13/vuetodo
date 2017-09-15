@@ -16,32 +16,40 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
+import Todo from '../models/todo';
+import RecordMeta from '../models/record-meta';
+
 import TodoDetail from './todo-detail.vue';
 
-export default {
+@Component({
   name: 'todo-list',
-  props: ['records', 'totalTodos'],
   components: {
     TodoDetail
-  },
-  methods: {
-    createTodo(record) {
+  }
+})
+export default class TodoList extends Vue {
+  @Prop()
+  records: RecordMeta<Todo>[];
+
+  @Prop()
+  totalTodos: number; 
+
+    createTodo(record): void {
       console.log('TodoList/createTodo, record = ', record);
       this.$emit('create-record', record);
-    },
-    cancelCreate() {
+    }
+    cancelCreate(): void {
       console.log('TodoList/cancelCreate');
       this.$emit('cancel-create');
-    },
-    updateTodo(record) {
+    }
+    updateTodo(record): void {
       console.log('TodoList/updateTodo, record = ', record);
       this.$emit('update-record', record);
-    },
-    deleteTodo(record) {
+    }
+    deleteTodo(record): void {
       console.log('TodoList/deleteTodo, record = ', record);
       this.$emit('delete-record', record);
     }
-  }
 }
 </script>
 <style></style>
