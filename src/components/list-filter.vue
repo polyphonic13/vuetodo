@@ -6,27 +6,24 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue'; 
-import Component from 'vue-class-component';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: 'list-filter',
-  props: {
-    recordFilter: String
-  }
+  name: 'list-filter'
 })
 export default class ListFilter extends Vue {
-  recordFilter: string = this.recordFilter;
+  @Prop()
+  recordFilter: string;
 
-    updateTodoFilter(value: string): void {
-      this.$emit('update-todo-filter', value)
-    }
-    getControlClass(type: string): any {
-      return {
-        control_button01: true,
-        bg_white: this.recordFilter === type
-      };
-    }
+  updateTodoFilter(value: string): void {
+    this.$emit('update-todo-filter', value)
+  }
+  getControlClass(type: string): any {
+    return {
+      control_button01: true,
+      bg_white: this.recordFilter === type
+    };
+  }
 }
 </script>
 <style>

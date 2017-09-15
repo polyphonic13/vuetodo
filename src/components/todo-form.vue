@@ -1,49 +1,48 @@
 <template>
   <div class="todo-form">
     <!-- VIEW -->
-    <!-- <div class="content" v-show="!record.isEditing"> -->
+    <!-- <div class="content" v-show="!recordMeta.item.isEditing"> -->
       <div class="content">
       <!-- <div class="name">
-        <b>{{ record.name }}</b>
+        <b>{{ recordMeta.item.name }}</b>
       </div> -->
       <text-field 
         v-bind:fieldName="fieldNames.name"
-        v-bind:value="record.name"
-        v-bind:isEditing="record.isEditing"
+        v-bind:value="recordMeta.item.name"
+        v-bind:isEditing="recordMeta.item.isEditing"
         v-bind:className="fieldNames.name"
         v-on:change="onFieldChange('name', $event)">
       </text-field>
       <!-- <div class="description">
-        {{ record.description }}
+        {{ recordMeta.item.description }}
       </div> -->
       <text-area-field
         v-bind:fieldName="fieldNames.description"
-        v-bind:value="record.description"
-        v-bind:isEditing="record.isEditing"
+        v-bind:value="recordMeta.item.description"
+        v-bind:isEditing="recordMeta.item.isEditing"
         v-bind:className="fieldNames.description"
         v-bind:rows="descriptionRows"
         v-bind:cols="descriptionCols"
         v-on:change="onFieldChange('description', $event)">
       </text-area-field>
       <div class="labels">
-        <ul v-show="record.labels.length > 0">
-          <li v-for="label of record.labels" :key="label.id" class="label text_sm">
+        <ul v-show="recordMeta.item.labels.length > 0">
+          <li v-for="label of recordMeta.item.labels" :key="label.id" class="label text_sm">
             <todo-label-detail
               v-bind:record="label"
-              v-bind:isEditing="record.isEditing"
+              v-bind:isEditing="recordMeta.item.isEditing"
               v-on:clicked="labelClicked"
               v-on:delete-clicked="labelDeleteClicked">
             </todo-label-detail>
           </li>
         </ul>
       </div>
-      <div class="created text_center text_sm">created: {{ record.createdAt | formatDate }}</div>
+      <div class="created text_center text_sm">created: {{ recordMeta.item.createdAt | formatDate }}</div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import Vue, { ComponentOptions } from 'vue';
-import Component from 'vue-class-component';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 // models
 import Todo from '../models/todo';
@@ -58,19 +57,15 @@ import TodoLabelDetail from './todo-label-detail.vue';
 
 @Component({
   name: 'todo-form',
-  props: {
-      record: Todo,
-      isEditing: Boolean,
-      isNew: Boolean
-  },
   components: {
-    TodoLabelDetail,
     TextField,
-    TextAreaField
+    TextAreaField,
+    TodoLabelDetail
   }
 })
 export default class TodoForm extends Vue {
-  record: RecordMeta<Todo> = new RecordMeta(this.record);
+  @Prop()
+  recordMeta: RecordMeta<Todo>;
 
   get fieldNames() {
     return {
@@ -88,23 +83,23 @@ export default class TodoForm extends Vue {
   changeContext(type: string): void {
     switch(type) {
       case 'edit':
-      this.$refs.name.focus();
-      this.record.isEditing = true;
+      // this.$refs.name.focus();
+      this.recordMeta.isEditing = true;
       break;
 
       case 'view':
-      this.record.isEditing = false;
+      this.recordMeta.isEditing = false;
       break;
 
       default:
-      this.record.isEditing = false;
+      this.recordMeta.isEditing = false;
       break;
     }
   }
 
   onFieldChange(field, data): void {
     console.log('TodoForm/onFieldChange, field = ' + field + ', data = ', data);
-    this.record.item[field] = data;
+    this.recordMeta.item[field] = data;
   }
 
   labelClicked(label: RecordMeta<TodoLabel>): void {
@@ -115,7 +110,7 @@ export default class TodoForm extends Vue {
     console.log('TodoForm/labelDeleteClicked, _id = ', label.item._id);
     let id = label.item._id;
     let index = -1;
-    this.record.item.labels.forEach(function(l, idx) {
+    this.recordMeta.item.labels.forEach(function(l, idx) {
       if(l._id === id) {
         index = idx;
       }
@@ -125,8 +120,8 @@ export default class TodoForm extends Vue {
     }
 
     console.log('\tsplicing from index: ' + index);
-    this.record.item.labels.splice(index, 1);
-    console.log('\tlabels now = ', this.record.item.labels);
+    this.recordMeta.item.labels.splice(index, 1);
+    console.log('\tlabels now = ', this.recordMeta.item.labels);
   
   }
 }

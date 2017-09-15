@@ -2,24 +2,23 @@
   
 </template>
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component({
-    props: {
-        fieldName: String,
-        value: String,
-        isEditing: Boolean,
-        defaultValue: String,
-        className: String
-    }
-})
+@Component({})
 export default class Field extends Vue {
+    @Prop()
     val: any;
+
+    @Prop()
     fieldName: string;
-    value: string;
-    isEditing: boolean;
-    defaultValue: string;
+    
+    @Prop()
+    value: any;
+
+    @Prop()
+    defaultValue: any;
+    
+    @Prop()
     className: string; 
 
     get placeholder(): string {

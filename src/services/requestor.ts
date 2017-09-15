@@ -2,22 +2,14 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import axios, {AxiosResponse} from 'axios';
 
-interface RequestParams {
-  data: any;
-  url: string;
-  done: Function;
-}
+import RequestParams from '../models/request-params';
 
-@Component({
-
-})
-export class Requestor extends Vue {
+export default class Requestor {
 
   public url: string;
   protected axios;
   
   constructor() {
-    super();
     this.axios = axios;
   }
 
@@ -32,6 +24,7 @@ export class Requestor extends Vue {
     axios
       .get(url, data)
       .then((response: AxiosResponse) => {
+        console.log('get/axios/then, params = ', params.done);
         params.done(response);
       })
       .catch(error => {

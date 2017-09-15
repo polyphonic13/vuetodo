@@ -9,16 +9,27 @@
   </div>
 </template>
 <script lang="ts">
-import Vue from 'vue'; 
-import Component from 'vue-class-component';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+
+import RecordMeta from '../models/record-meta';
+import TodoLabel from '../models/todo-label';
 
 import Crud from '../mixins/crud';
 import ClickEmitter from '../mixins/click-emitter';
 
-export default {
+@Component({
   name: 'todo-label-detail',
-  props: ['record', 'isEditing'],
-  mixins: [ Crud, ClickEmitter ]
+  props: {
+    record: TodoLabel
+  },
+  mixins: [
+    Crud,
+    ClickEmitter
+  ]
+})
+export default class TodoLabelDetail extends Vue {
+  @Prop()
+  record: RecordMeta<TodoLabel>;
 }
 </script>
 <style>

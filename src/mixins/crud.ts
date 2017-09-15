@@ -1,44 +1,31 @@
-import Requestor from '../services/requestor';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
-export default {
-  data() {
-    return {
-      requestor: new Requestor()
+import Requestor from '../services/requestor';
+import RequestParams from '../models/request-params';
+
+
+@Component({})
+export default class Crud extends Vue {
+  requestor: Requestor;
+
+    list(url, data, done): void {
+      this.get(url, data, done);
     }
-  },
-  methods: {
-    list: function(url, done) {
-      this.get(url, done);
-    },
-    view: function(url, done) {
-      this.get(url, done);
-    },
-    create: function(url, data, done) {
-      this.post(url, data, done);
-    },
-    update: function(url, data, done) {
-      this.post(url, data, done);
-    },
-    delete: function(url, id, done) {
-      this.requestor.delete({
-        url: url,
-        id: id,
-        done: done
-      });
-    },
-    get: function(url, done) {
-      this.requestor.get({
-        url: url,
-        done: done
-      });
-    },
-    post: function(url, data, done) {
-      data = data || {};
-      this.requestor.post({
-        url: url,
-        data: data,
-        done: done
-      });
+    view(url, data, done): void {
+      this.get(url, data, done);
     }
-  }
+    create(url, data, done): void {
+      this.post(url, data, done);
+    }
+    update(url, data, done): void {
+      this.post(url, data, done);
+    }
+    get(url, data, done): void {
+      let params = new RequestParams(url, data, done);
+      this.requestor.get(params);
+    }
+    post(url, data, done): void {
+      let params = new RequestParams(url, data, done);
+      this.requestor.post(params);
+    }
 }

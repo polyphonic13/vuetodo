@@ -1,7 +1,7 @@
 
 export default class RecordMeta<T> {
-    isEditing: boolen = false; 
+    isEditing: boolean = false; 
     isNew: boolean = false; 
 
-    constructor(public item T) {}
+    constructor(public item: T) {}
 }
