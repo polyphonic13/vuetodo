@@ -7,12 +7,21 @@
   </div>
 </template>
 <script lang="ts">
-import Field from './field';
+import Vue from 'vue';
+import Component from 'vue-class-component'; 
 
-export default {
-    name: 'text-area-field',
-    props: [ 'rows', 'cols' ],
-    extends: Field
+import Field from './field.vue';
+
+@Component({
+  name: 'text-area-field',
+  props: {
+    rows: Number,
+    cols: Number
+  }
+})
+export default class TextAreaField extends Field {
+  rows: number = this.rows; 
+  cols: number = this.cols;
 }
 </script>
 <style></style>

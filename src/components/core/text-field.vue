@@ -7,11 +7,15 @@
   </div>
 </template>
 <script lang="ts">
-import Field from './field';
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default {
-    name: 'text-field',
-    extends: Field
+import Field from './field.vue';
+
+@Component({
+  name: 'text-field'  
+})
+export default class TextField extends Field {
 }
 </script>
 <style></style>

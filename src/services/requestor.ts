@@ -1,44 +1,63 @@
-import $ from "jquery"; 
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import axios, {AxiosResponse} from 'axios';
 
-export default class Requestor {
-    init = function(params) {
-      if(params.url) {
-        this.setUrl(params.url);
-      }
-    };
+interface RequestParams {
+  data: any;
+  url: string;
+  done: Function;
+}
 
-    setUrl = function(url) {
-      this.url = url;
-    };
+@Component({
 
-    get = function(params) {
-      let url = params.url || this.url;
-      if(!url) {
-        return;
-      }
+})
+export class Requestor extends Vue {
 
-      $.ajax(
-        url
-      ).done(function(response) {
+  public url: string;
+  protected axios;
+  
+  constructor() {
+    super();
+    this.axios = axios;
+  }
+
+  public get(params: RequestParams): void {
+    let data = params.data || {};
+    let url = params.url || this.url;
+    
+    if(!url) {
+      return;
+    }
+
+    axios
+      .get(url, data)
+      .then((response: AxiosResponse) => {
         params.done(response);
+      })
+      .catch(error => {
+        console.log(error)
       });
-    };
 
-    post = function(params) {
-      let url = params.url || this.url;
+  }
 
-      if(!url || !params.data) {
-        return;
-      }
+  public post(params: RequestParams): void {
+    let url = params.url || this.url;
+    
+    if(!url || !params.data) {
+      return;
+    }
 
-      let data = params.data;
-      console.log('data = ', data, '\nstringified: ' + JSON.stringify(data));
-      $.post(
-        url,
-        data
-      ).done(function(response) {
-          params.done(response);
+    let data = params.data;
+    console.log('data = ', data, '\nstringified: ' + JSON.stringify(data));
+
+    axios
+      .post(url, data)
+      .then((response: AxiosResponse) => {
+        params.done(response);
+      })
+      .catch(error => {
+        console.log(error);
       });
-    };
-
+    
+  }
 }

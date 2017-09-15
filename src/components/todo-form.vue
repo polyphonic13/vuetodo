@@ -39,37 +39,98 @@
       </div>
       <div class="created text_center text_sm">created: {{ record.createdAt | formatDate }}</div>
     </div>
-    <!-- EDIT
-    <div class="content" v-show="record.isEditing">
-      <div class="ui form">
-        <div v-if="!record.isNew">
-          <input type="hidden" ref="_id" v-model="record._id" />
-        </div>
-        <div class="name">
-          <input type="text" ref="name" v-model="record.name" placeholder="name">
-        </div>
-        <div class="description">
-          <textarea rows="5" cols="32" type="textarea" ref="description" v-model="record.description" placeholder="description" class="description-edit"></textarea>
-        </div>
-        <div class="labels">
-          <ul v-show="record.labels.length > 0">
-            <li v-for="label of record.labels" :key="label.id" class="label text_sm">
-              <todo-label-detail
-                v-bind:record="label"
-                v-bind:isEditing="true"
-                v-on:clicked="labelClicked"
-                v-on:delete-clicked="labelDeleteClicked">
-              </todo-label-detail>
-            </li>
-          </ul>
-        </div>
-        <div class="created text_center text_sm"></div>
-      </div>
-    </div>
-     -->
   </div>
 </template>
-<script lang="ts" src="./todo-form.ts"></script>
+<script lang="ts">
+import Vue, { ComponentOptions } from 'vue';
+import Component from 'vue-class-component';
+
+// models
+import Todo from '../models/todo';
+import TodoLabel from '../models/todo-label';
+import RecordMeta from '../models/record-meta';
+
+// components
+import TextField from './core/text-field.vue'
+import TextAreaField from './core/text-area-field.vue';
+
+import TodoLabelDetail from './todo-label-detail.vue';
+
+@Component({
+  name: 'todo-form',
+  props: {
+      record: Todo,
+      isEditing: Boolean,
+      isNew: Boolean
+  },
+  components: {
+    TodoLabelDetail,
+    TextField,
+    TextAreaField
+  }
+})
+export default class TodoForm extends Vue {
+  record: RecordMeta<Todo> = new RecordMeta(this.record);
+
+  get fieldNames() {
+    return {
+      name: 'name',
+      description: 'description'
+    }
+  }
+  get descriptionRows(): number {
+    return 6;
+  }
+  get descriptionCols(): number {
+    return 37;
+  }
+
+  changeContext(type: string): void {
+    switch(type) {
+      case 'edit':
+      this.$refs.name.focus();
+      this.record.isEditing = true;
+      break;
+
+      case 'view':
+      this.record.isEditing = false;
+      break;
+
+      default:
+      this.record.isEditing = false;
+      break;
+    }
+  }
+
+  onFieldChange(field, data): void {
+    console.log('TodoForm/onFieldChange, field = ' + field + ', data = ', data);
+    this.record.item[field] = data;
+  }
+
+  labelClicked(label: RecordMeta<TodoLabel>): void {
+    console.log('TodoForm/labelClicked, label = ', label.item);
+  }
+
+  labelDeleteClicked(label: RecordMeta<TodoLabel>): void {
+    console.log('TodoForm/labelDeleteClicked, _id = ', label.item._id);
+    let id = label.item._id;
+    let index = -1;
+    this.record.item.labels.forEach(function(l, idx) {
+      if(l._id === id) {
+        index = idx;
+      }
+    });
+    if(index === -1) {
+      return;
+    }
+
+    console.log('\tsplicing from index: ' + index);
+    this.record.item.labels.splice(index, 1);
+    console.log('\tlabels now = ', this.record.item.labels);
+  
+  }
+}
+</script>
 <style>
 .todo-form {
   height: 205px;

@@ -4,17 +4,20 @@
   </div>
 </template>
 <script lang="ts">
-export default {
+import Vue from 'vue'; 
+import Component from 'vue-class-component';
+
+@Component({
   name: 'todo-create',
-  data() {
-    return {
-      isCreating: false
-    };
-  },
-  methods: {
-    addTodo() {
-      this.$emit('add-record');
-    }
+  props: {
+    recordFilter: String
+  }
+})
+export default class TodoCreate extends Vue {
+  isCreating: boolean = false;
+
+  addTodo(): void {
+    this.$emit('add-record');
   }
 }
 </script>

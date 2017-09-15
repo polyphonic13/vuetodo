@@ -14,6 +14,9 @@
   </div>
 </template>
 <script lang="ts">
+import Vue from 'vue'; 
+import Component from 'vue-class-component';
+
 import TodoDetail from './todo-detail.vue';
 
 export default {

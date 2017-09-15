@@ -2,33 +2,45 @@
   
 </template>
 <script lang="ts">
-export default {
-    props: ['fieldName', 'value', 'isEditing', 'default', 'className'],
-    data: function() {
-        return {
-            val: null
-        }
-    },
-    computed: {
-        placeholder: function() {
-            return this.default || '';
-        },
-        classObject: function() {
-            var className = this.className || this.fieldName;
-            var obj = {
-                field: true
-            };
-            obj[className] = true;
-            return obj;
-        }
-    },
-    mounted: function() {
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+@Component({
+    props: {
+        fieldName: String,
+        value: String,
+        isEditing: Boolean,
+        defaultValue: String,
+        className: String
+    }
+})
+export default class Field extends Vue {
+    val: any;
+    fieldName: string;
+    value: string;
+    isEditing: boolean;
+    defaultValue: string;
+    className: string; 
+
+    get placeholder(): string {
+        return this.defaultValue || '';
+    }
+
+    get classObject(): any {
+        let className = this.className || this.fieldName;
+        let obj = {
+            field: true
+        };
+        obj[className] = true;
+        return obj;
+    }
+
+    mounted(): void {
         this.val = this.value;
-    },
-    methods: {
-        emitChange: function(data) {
-            this.$emit('change', data);
-        }
+    }
+
+    emitChange(data): void {
+        this.$emit('change', data);
     }
 }
 </script>
